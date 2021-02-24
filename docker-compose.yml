@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  
+  front:
+    image: node:13.7-alpine
+    build:
+      context: ./ec-front
+    container_name: ec-front
+    working_dir: /app
+    ports:
+      - 8080:8080
+    tty: true 
+    volumes:
+      - ./ec-front:/app
