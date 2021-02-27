@@ -1,5 +1,7 @@
 <template>
-  <div>Home</div>
+  <div>
+    <h1>ECサンプルサイト</h1>
+  </div>
 </template>
 
 <script>

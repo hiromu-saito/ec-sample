@@ -2,11 +2,14 @@
   <div>
     <nav>
       <ul>
-        <li><router-link to="/">新規会員登録</router-link></li>
+        <li><router-link to="/signup">新規会員登録</router-link></li>
         <li><router-link to="/">会員情報変更・削除</router-link></li>
-        <li><router-link to="/">商品検索</router-link></li>
-        <li><router-link to="/">お買い物かご</router-link></li>
-        <button class="logout">ログアウト</button>
+        <li><router-link to="/search">商品検索</router-link></li>
+        <li><router-link to="/backets">お買い物かご</router-link></li>
+        <router-link tag="button" to="/login" style="float: right"
+          >ログイン</router-link
+        >
+        <!-- <button class="logout">ログアウト</button> -->
       </ul>
     </nav>
   </div>
