@@ -9,7 +9,7 @@
         :type="inputType"
         :name="name"
         :placeholder="placeholder"/>
-      <p style="color:red">{{errors[0]}}</p>
+      <span class="error" >{{errors[0]}}</span>
     </validation-provider>
 </template>
 
@@ -51,6 +51,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.error{
+  color: red;
+  padding-left: 16px;
+}
 
 </style>
