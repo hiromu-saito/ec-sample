@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import Search from '../views/Search.vue'
 import Backets from '../views/Backets.vue'
+import SignupSuccess from '../views/SignupSuccess'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,11 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: Signup
+  },
+  {
+    path: '/signup_success',
+    name: 'SignupSuccess',
+    component: SignupSuccess
   },
   {
     path: '/search',
