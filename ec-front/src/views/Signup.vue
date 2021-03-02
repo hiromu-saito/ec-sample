@@ -106,7 +106,7 @@
             <td>
               <validation-input
                 inputType="tel"
-                name="tel"
+                name="電話番号"
                 rules="required|max:20|tel"
                 placeholder="000-0000-0000"
                 :value.sync="user.tel"
@@ -198,7 +198,6 @@ export default {
   methods: {
     clear() {
       this.user = {}
-      console.log("入力値クリア");
     },
     register(){
       console.log("登録APIを呼び出す")
