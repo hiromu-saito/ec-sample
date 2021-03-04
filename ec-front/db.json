@@ -1,7 +1,30 @@
 {
   "categories": [
-    { "category": "カテゴリ1" },
-    { "category": "カテゴリ2" },
-    { "category": "カテゴリ3" }
+    { "id":1,"title": "カテゴリ1" },
+    { "id":2,"title": "カテゴリ2" },
+    { "id":3,"title": "カテゴリ3" }
+  ],
+  "search": [
+    {
+      "code":"0000-0001",
+      "name": "商品001",
+      "distributor":"販売元001",
+      "price": "1000",
+      "memo":"素晴らしい商品"
+    },
+    {
+      "code":"0000-0002",
+      "name": "商品002",
+      "distributor":"販売元002",
+      "price": "2000",
+      "memo":"素晴らしい商品"
+    },
+    {
+      "code":"0000-0003",
+      "name": "商品003",
+      "distributor":"販売元003",
+      "price": "3000",
+      "memo":"素晴らしい商品"
+    }
   ]
 }

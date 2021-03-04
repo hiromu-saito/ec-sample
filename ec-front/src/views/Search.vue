@@ -8,11 +8,11 @@
           <th>カテゴリ</th>
           <td>
             <select>
-              <option 
-                v-for="(category,index) in categories"
-                :value="category"
-                :key="index">
-                {{category}}
+              <option
+                v-for="(category) in categories"
+                :value="category.title"
+                :key="category.id">
+                {{category.title}}
               </option>
             </select>
           </td>
@@ -62,13 +62,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr
+            v-for="result in results "
+            :key="result.code">
             <td><input type="checkbox"/></td>
-            <td>0000-0000</td>
-            <td>商品001</td>
-            <td>販売元001</td>
-            <td>1000</td>
-            <td>素晴らしい商品</td>
+            <td>{{result.code}}</td>
+            <td>{{result.name}}</td>
+            <td>{{result.distributor}}</td>
+            <td>{{result.price}}</td>
+            <td>{{result.memo}}</td>
             <td><input/></td>
           </tr>
         </tbody>
@@ -79,28 +81,35 @@
 </template>
 
 <script>
+const categoryUrl = "http://localhost:3000/categories"
+const searchUrl = "http://localhost:3000/search"
 export default {
   name: "Search",
   data(){
     return{
       searched:false,
-      categories:[]
+      categories:[],
+      results:[]
     }
   },
   methods:{
-    search(){
+    async search(){
       //API呼び出し
+      this.results = await
+      fetch(searchUrl)
+      .then(response => response.json())
       this.searched = true
     }
   },
-  beforeRouteEnter(to,from,next){
+  async mounted(){
     //API呼び出してカテゴリを取得
     //仮実装
-    next(vm =>{
-      vm.categories =  ['カテゴリ1','カテゴリ2','カテゴリ3']
-    })
+    this.categories = await
+    fetch(categoryUrl)
+    .then(response => response.json())
   }
 };
+
 </script>
 
 <style scoped>
