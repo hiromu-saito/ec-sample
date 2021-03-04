@@ -40,7 +40,7 @@
         <button>クリア</button>
       </p>
     </div>
-    <div v-if="searched" class="search_list">
+    <div class="search_list">
       商品一覧
       <p class="page">
         <span>&lt;&lt;</span>
@@ -63,7 +63,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="result in results "
+            v-for="result in results"
             :key="result.code">
             <td><input type="checkbox"/></td>
             <td>{{result.code}}</td>
@@ -75,38 +75,38 @@
           </tr>
         </tbody>
       </table>
-      <button>お買い物かごにいれる</button>
+      <p><button>お買い物かごにいれる</button></p>
     </div>
   </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+import store from '../store'
+
+
 const categoryUrl = "http://localhost:3000/categories"
-const searchUrl = "http://localhost:3000/search"
 export default {
   name: "Search",
   data(){
     return{
-      searched:false,
       categories:[],
-      results:[]
     }
   },
   methods:{
-    async search(){
-      //API呼び出し
-      this.results = await
-      fetch(searchUrl)
-      .then(response => response.json())
-      this.searched = true
+    ...mapActions('search',['setResultsAction','resetResultsAction']),
+    search(){
+      //検索パラメータを渡す
+      this.setResultsAction()
     }
   },
   async mounted(){
-    //API呼び出してカテゴリを取得
     //仮実装
-    this.categories = await
-    fetch(categoryUrl)
-    .then(response => response.json())
+    this.categories = await fetch(categoryUrl).then(response => response.json())
+    this.resetResultsAction()
+  },
+  computed:{
+    results:() => store.state.search.results
   }
 };
 
