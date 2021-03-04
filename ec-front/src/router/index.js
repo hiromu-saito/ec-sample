@@ -4,7 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import Search from '../views/Search.vue'
-import Backets from '../views/Backets.vue'
+import Backet from '../views/Backet.vue'
 import SignupSuccess from '../views/SignupSuccess'
 
 Vue.use(VueRouter)
@@ -36,9 +36,9 @@ const routes = [
     component: Search
   },
   {
-    path: '/backets',
-    name: 'Backets',
-    component: Backets
+    path: '/backet',
+    name: 'Backet',
+    component: Backet
   },
 
 ]
