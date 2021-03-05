@@ -65,17 +65,23 @@
           <tr
             v-for="result in results"
             :key="result.code">
-            <td><input type="checkbox"/></td>
+            <td>
+              <input
+                type="checkbox"
+                :value="result"
+                v-model="selectedItems"
+                />
+            </td>
             <td>{{result.code}}</td>
             <td>{{result.name}}</td>
             <td>{{result.distributor}}</td>
             <td>{{result.price}}</td>
             <td>{{result.memo}}</td>
-            <td><input/></td>
+            <td><input v-model="result.count"/></td>
           </tr>
         </tbody>
       </table>
-      <p><button>お買い物かごにいれる</button></p>
+      <p><button @click="addBacket">お買い物かごにいれる</button></p>
     </div>
   </div>
 </template>
@@ -91,19 +97,26 @@ export default {
   data(){
     return{
       categories:[],
-    }
-  },
-  methods:{
-    ...mapActions('search',['setResultsAction','resetResultsAction']),
-    search(){
-      //検索パラメータを渡す
-      this.setResultsAction()
+      selectedItems:[],
     }
   },
   async mounted(){
-    //仮実装
+    //TODO 呼び出しAPIを変える
     this.categories = await fetch(categoryUrl).then(response => response.json())
     this.resetResultsAction()
+  },
+  methods:{
+    ...mapActions('search',['setResultsAction','resetResultsAction']),
+    ...mapActions('backet',['addItemAction']),
+    search(){
+      //TODO 検索パラメータを渡す
+      this.setResultsAction()
+    },
+    addBacket(){
+      //TODO 在庫チェック
+      this.addItemAction(this.selectedItems)
+      this.$router.push("/backet")
+    }
   },
   computed:{
     results:() => store.state.search.results

@@ -5,7 +5,7 @@
         <li><router-link to="/signup">新規会員登録</router-link></li>
         <li><router-link to="/">会員情報変更・削除</router-link></li>
         <li><router-link to="/search">商品検索</router-link></li>
-        <li><router-link to="/backets">お買い物かご</router-link></li>
+        <li><router-link to="/backet">お買い物かご</router-link></li>
         <router-link tag="button" to="/login" style="float: right"
           >ログイン</router-link
         >
