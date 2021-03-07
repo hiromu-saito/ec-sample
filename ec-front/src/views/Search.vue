@@ -3,42 +3,63 @@
     <h1>商品検索</h1>
     <div class="search">
       <p>検索条件を入力してください</p>
-      <table>
-        <tr>
-          <th>カテゴリ</th>
-          <td>
-            <select>
-              <option
-                v-for="(category) in categories"
-                :value="category.title"
-                :key="category.id">
-                {{category.title}}
-              </option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <th>商品名</th>
-          <td><input/></td>
-        </tr>
-        <tr>
-          <th>販売元</th>
-          <td><input/></td>
-        </tr>
-        <tr>
-          <th>金額上限</th>
-          <td><input/></td>
-        </tr>
-        <tr>
-          <th>金額下限</th>
-          <td><input/></td>
-        </tr>
-      </table>
-      <p>
-        <button @click="search">検索</button>
-        <button @click="$router.push('/')">戻る</button>
-        <button>クリア</button>
-      </p>
+      <validation-observer tag="form" v-slot="{ invalid }">
+        <table>
+          <tr>
+            <th>カテゴリ</th>
+            <td>
+              <select>
+                <option
+                  v-for="category in categories"
+                  :value="category.title"
+                  :key="category.id"
+                >
+                  {{ category.title }}
+                </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th>商品名</th>
+            <td>
+              <input name="itemName" v-model="where.itemName" />
+            </td>
+          </tr>
+          <tr>
+            <th>販売元</th>
+            <td>
+              <input name="distributor" v-model="where.distributor" />
+            </td>
+          </tr>
+          <tr>
+            <th>金額上限</th>
+            <td>
+              <validation-input
+                inputType="input"
+                name="maxprice"
+                rules="numeric|higher:@minprice"
+                :value.sync="where.maxPrice"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>金額下限</th>
+            <td>
+              <validation-input
+                inputType="input"
+                name="minprice"
+                rules="numeric|lower:@maxprice"
+                :value.sync="where.minPrice"
+              />
+            </td>
+          </tr>
+        </table>
+        <p>
+          <button @click.prevent="search" :disabled="invalid">検索</button>
+          <button @click="$router.push('/')">戻る</button>
+          <button @click.prevent="clear">クリア</button>
+        </p>
+      </validation-observer>
     </div>
     <div class="search_list">
       商品一覧
@@ -62,16 +83,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="result in results"
-            :key="result.code">
-            <td><input type="checkbox"/></td>
-            <td>{{result.code}}</td>
-            <td>{{result.name}}</td>
-            <td>{{result.distributor}}</td>
-            <td>{{result.price}}</td>
-            <td>{{result.memo}}</td>
-            <td><input/></td>
+          <tr v-for="result in results" :key="result.code">
+            <td><input type="checkbox" /></td>
+            <td>{{ result.code }}</td>
+            <td>{{ result.name }}</td>
+            <td>{{ result.distributor }}</td>
+            <td>{{ result.price }}</td>
+            <td>{{ result.memo }}</td>
+            <td><input /></td>
           </tr>
         </tbody>
       </table>
@@ -81,35 +100,43 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-import store from '../store'
+import { mapActions } from "vuex";
+import store from "../store";
+import ValidationInput from "../components/ValidationInput.vue";
 
-
-const categoryUrl = "http://localhost:3000/categories"
+const categoryUrl = "http://localhost:3000/categories";
 export default {
   name: "Search",
-  data(){
-    return{
-      categories:[],
-    }
+  components: {
+    ValidationInput,
   },
-  methods:{
-    ...mapActions('search',['setResultsAction','resetResultsAction']),
-    search(){
+  data() {
+    return {
+      categories: [],
+      where: {},
+    };
+  },
+  methods: {
+    ...mapActions("search", ["setResultsAction", "resetResultsAction"]),
+    search() {
       //検索パラメータを渡す
-      this.setResultsAction()
-    }
+      this.setResultsAction();
+    },
+    clear() {
+      this.where = {};
+    },
   },
-  async mounted(){
+  async mounted() {
     //仮実装
-    this.categories = await fetch(categoryUrl).then(response => response.json())
-    this.resetResultsAction()
+    this.categories = await fetch(categoryUrl).then((response) =>
+      response.json()
+    );
+    this.resetResultsAction();
   },
-  computed:{
-    results:() => store.state.search.results
-  }
+  computed: {
+    results: () => store.state.search.results,
+  },
 };
-
 </script>
 
 <style scoped>
@@ -139,12 +166,12 @@ export default {
 .search_list table,
 .search_list th,
 .search_list td {
-  border: 1px solid ;
+  border: 1px solid;
 }
-.search_list th{
+.search_list th {
   background-color: pink;
 }
-.page span{
+.page span {
   display: inline-block;
   margin: 0 5px 0 5px;
 }
