@@ -15,5 +15,7 @@ export default new Vuex.Store({
   modules: {
     search,
     backet
+  },
+  getters:{
   }
 })

@@ -14,7 +14,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr 
+          <tr
             v-for="backetItem in backetItems"
             :key="backetItem.code">
             <td><input type="checkbox"/></td>
@@ -22,9 +22,8 @@
             <td>{{backetItem.name}}</td>
             <td>{{backetItem.distributor}}</td>
             <td>&yen;{{backetItem.price}}</td>
-            <!-- <td>{{backetItem.count}}</td> -->
             <td>
-              <input 
+              <input
                 type="text"
                 v-model="backetItem.count"
               />
@@ -52,7 +51,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr 
+          <tr
             v-for="backetItem in backetItems"
             :key="backetItem.code">
             <td>{{backetItem.code}}</td>
@@ -69,14 +68,14 @@
           <th>小計</th>
           <td>&yen;{{subtotal}}</td>
         </tr>
-        <!-- <tr>
+        <tr>
           <th>消費税</th>
           <td>&yen;{{tax}}</td>
         </tr>
         <tr>
           <th>合計金額</th>
           <td>&yen;{{total}}</td>
-        </tr> -->
+        </tr>
       </table>
       <p>
         <button @click="stopShopping">買い物をやめる</button>
@@ -95,7 +94,7 @@
 
 <script>
 import store from '../store'
-import {mapActions} from 'vuex'
+import {mapActions,mapGetters} from 'vuex'
 
 const BACKET = store.state.backet
 
@@ -109,27 +108,11 @@ export default {
   },
   computed:{
     backetItems:()=> BACKET.backetItems,
-    // account:()=>{
-    //   let test = this.backetItems
-    //   console.log(test)
-    //   let subtotal  = 0
-    //   BACKET.backetItems.forEach(backetItem => {
-    //     subtotal += parseInt(backetItem.price,10)
-    //   });
-    //   const tax = subtotal * 0.1
-    //   return {
-    //     subtotal,
-    //     tax,
-    //     total:subtotal + tax
-    //   }
-    // },
-    subtotal:()=>{
-      let subtotal = 0;
-      BACKET.backetItems.forEach(backetItem => {
-        subtotal += parseInt(backetItem.price,10)
-      })
-      return subtotal
-    },
+    ...mapGetters({
+      subtotal:'backet/subtotal',
+      tax:'backet/tax',
+      total:'backet/total'
+    }),
   },
   methods:{
     ...mapActions('backet',['removeAllItemAction']),

@@ -29,9 +29,28 @@ const actions = {
   }
 }
 
+const getters ={
+  subtotal(state){
+    let subtotal = 0;
+    state.backetItems.forEach(backetItem => {
+      subtotal += parseInt(backetItem.price)
+    });
+    return subtotal
+  },
+
+  tax(state,getters) {
+    return getters.subtotal * 0.1
+  },
+
+  total(state,getters){
+    return getters.subtotal + getters.tax
+  }
+}
+
 export default{
   namespaced:true,
   state,
   mutations,
   actions,
+  getters
 }
