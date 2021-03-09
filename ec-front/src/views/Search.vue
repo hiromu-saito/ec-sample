@@ -90,7 +90,7 @@
               <input
                 type="checkbox"
                 :value="result"
-                v-model="selectedItems"
+                @click="selectedItems.push(result)"
                 />
             </td>
             <td>{{result.code}}</td>
@@ -102,7 +102,7 @@
           </tr>
         </tbody>
       </table>
-      <p><button @click="addBacket">お買い物かごにいれる</button></p>
+      <p><button @click="addBacket" :disabled=addBacketValidate>お買い物かごにいれる</button></p>
     </div>
   </div>
 </template>
@@ -146,10 +146,22 @@ export default {
       //TODO 在庫チェック
       this.addItemAction(this.selectedItems)
       this.$router.push("/backet")
-    }
+    },
   },
   computed:{
-    results:() => store.state.search.results
+    results:() => store.state.search.results,
+    addBacketValidate(){
+      if (this.selectedItems.length === 0){
+        return true
+      }
+      const valid = this.selectedItems.some(selectedItem=>{
+        if(!selectedItem.count){
+          return true
+        }
+        return selectedItem.count.match(/[^0-9]+/)
+      })
+      return valid
+    }
   }
 };
 </script>
