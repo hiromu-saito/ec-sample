@@ -24,7 +24,14 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'junit', module: 'junit'
+	}
+	testImplementation 'org.junit.jupiter:junit-jupiter'//JUnit5のAPI
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'//IDEなどのサポート用
+	testRuntimeOnly 'org.junit.vintage:junit-vintage-engine'//JUnit3,4対応
+	testCompileOnly 'junit:junit'//Junit5のBOMからJunit4を入れなおせば、4以前のテストも競合しないようです
+	testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	testImplementation 'io.projectreactor:reactor-test'
 }
 
