@@ -1,15 +1,28 @@
-version: '3'
+version: "3"
 
 services:
-  
   front:
     image: node:13.7-alpine
     build:
       context: ./ec-front
+      dockerfile: Dockerfile
     container_name: ec-front
     working_dir: /app
     ports:
-      - 8080:8080
-    tty: true 
+      - 8081:8081
+    tty: true
     volumes:
       - ./ec-front:/app
+
+  api:
+    image: adoptopenjdk/openjdk11
+    build:
+      context: ./ec-api
+      dockerfile: Dockerfile
+    ports:
+      - "18081:18081"
+    container_name: ec-api
+    working_dir: /app
+    volumes:
+      - ./ec-api:/app
+    tty: true
