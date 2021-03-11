@@ -26,3 +26,19 @@ services:
     volumes:
       - ./ec-api:/app
     tty: true
+
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    container_name: ec-db
+    ports:
+      - 33060:3306
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_ROOT_PASSWORD=${DB_PASS}
+      - TZ=${TZ}
+    volumes:
+      - ./db:/db
