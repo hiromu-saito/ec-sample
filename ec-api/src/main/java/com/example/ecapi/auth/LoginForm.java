@@ -8,6 +8,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class LoginForm {
-    String name;
+    String memNo;
+
     String pass;
+
+    String name;
 }

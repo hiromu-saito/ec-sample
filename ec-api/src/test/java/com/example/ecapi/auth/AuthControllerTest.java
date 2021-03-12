@@ -1,16 +1,13 @@
-package com.example.ecapitest.api.user;
+package com.example.ecapi.api.user;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import com.example.ecapitest.auth.AuthController;
-import org.springframework.test.web.servlet.ResultActions;
+import com.example.ecapi.api.auth.AuthController;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -34,12 +31,12 @@ public class AuthControllerTest {
 
     @Test
     public void loginSuccess()throws Exception {
-       mockMvc.perform(get("/auth?name=test&pass=test"))
+       mockMvc.perform(get("/auth?memNo=11&pass=11"))
                .andExpect(status().isOk());
     }
     @Test
     public void loginFailure()throws Exception {
-       mockMvc.perform(get("/auth?name=name&pass=pass"))
+       mockMvc.perform(get("/auth?memNo=1&pass=pass"))
                .andExpect(status().isNotFound());
     }
 }
