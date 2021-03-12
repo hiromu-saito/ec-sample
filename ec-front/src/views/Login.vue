@@ -54,13 +54,12 @@ export default {
     login(){
       //ログインAPIをたたく
       fetch('http://localhost:18081/auth?'+new URLSearchParams({
-        name:this.memNo,
+        memNo:this.memNo,
         pass:this.pass
       }))
         .then(response =>{
           if (response.ok){
             console.log('ログイン成功')
-            console.log(response.json())
           }else{
             console.log('ログイン失敗')
           }

@@ -1,4 +1,4 @@
-package com.example.ecapi.api.user;
+package com.example.ecapi.auth;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import com.example.ecapi.api.auth.AuthController;
+import com.example.ecapi.auth.AuthController;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
