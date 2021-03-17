@@ -3,6 +3,8 @@ package com.example.ecapi.auth;
 import com.example.ecdomain.dto.Member;
 import com.example.ecdomain.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +17,10 @@ public class AuthController {
 
     @CrossOrigin
     @GetMapping(value="/auth")
-    public ResponseEntity Login (LoginForm loginForm) throws Exception{
+    public ResponseEntity<Object> Login (LoginForm loginForm) throws Exception{
         Member member = authService.authCheck(loginForm);
         System.out.println(member);
 
-        return  ResponseEntity.ok(member);
+        return  new ResponseEntity<>(member,new HttpHeaders(), HttpStatus.OK);
     }
 }
