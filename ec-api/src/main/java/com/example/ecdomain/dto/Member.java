@@ -12,7 +12,7 @@ import java.sql.Time;
 public class Member {
     @Id
     @Column(name = "MEMBER_NO")
-    int memNo;
+    Integer memNo;
 
     @Column(name = "PASSWORD")
     String password;
@@ -21,7 +21,7 @@ public class Member {
     String name;
 
     @Column(name = "AGE")
-    int age;
+    Integer age;
 
     @Column(name = "SEX")
     String sex;
