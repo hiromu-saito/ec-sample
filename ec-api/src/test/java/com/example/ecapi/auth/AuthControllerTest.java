@@ -3,14 +3,12 @@ package com.example.ecapi.auth;
 import com.example.eccommon.ApiExceptionHandler;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.Result;
+
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import com.example.ecapi.auth.AuthController;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -38,7 +36,6 @@ public class AuthControllerTest {
     public void loginSuccess()throws Exception {
        mockMvc.perform(get("/auth?memNo=1&pass=111"))
                .andExpect(status().isOk());
-        ResultActions res = mockMvc.perform(get("/auth?memNo=1&pass=111"));
 
     }
     @Test

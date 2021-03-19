@@ -1,0 +1,8 @@
+SELECT
+    MEMBER_NO
+FROM
+    ONLINE_MEMBER
+ORDER BY
+    MEMBER_NO DESC
+limit
+    1;

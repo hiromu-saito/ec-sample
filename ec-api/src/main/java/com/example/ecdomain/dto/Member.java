@@ -1,16 +1,20 @@
 package com.example.ecdomain.dto;
 
+
 import lombok.Getter;
 import lombok.Setter;
 import org.seasar.doma.*;
-import java.sql.Time;
 
-@Table(name ="ONLINE_MEMBER")
+import java.sql.Timestamp;
+
+
+@Table(name = "ONLINE_MEMBER")
 @Entity
 @Getter
 @Setter
 public class Member {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MEMBER_NO")
     Integer memNo;
 
@@ -42,5 +46,5 @@ public class Member {
     String deleteFlg;
 
     @Column(name = "LAST_UPD_DATE")
-    Time lastUpdDate;
+    Timestamp lastUpdDate;
 }

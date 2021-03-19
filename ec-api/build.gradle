@@ -42,12 +42,12 @@ dependencies {
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    compile "org.seasar.doma.boot:doma-spring-boot-starter:1.1.1"
+    compile "org.seasar.doma.boot:doma-spring-boot-starter:1.5.0"
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'junit', module: 'junit'
     }
-    testImplementation 'org.junit.jupiter:junit-jupiter'//JUnit5のAPI
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'//JUnit5のAPI
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'//IDEなどのサポート用
     testRuntimeOnly 'org.junit.vintage:junit-vintage-engine'//JUnit3,4対応
     testCompileOnly 'junit:junit'//Junit5のBOMからJunit4を入れなおせば、4以前のテストも競合しないようです
@@ -55,6 +55,8 @@ dependencies {
     testImplementation 'io.projectreactor:reactor-test'
 
     runtime "mysql:mysql-connector-java:+"
+
+    compile "org.modelmapper:modelmapper:1.1.3"
 }
 
 eclipse {
@@ -125,6 +127,6 @@ eclipse {
 //
 //}
 
-//test {
-//	useJUnitPlatform()
-//}
+test {
+	useJUnitPlatform()
+}

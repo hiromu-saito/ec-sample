@@ -19,6 +19,7 @@ public class AuthService {
         int memNo = Integer.parseInt(loginForm.getMemNo());
         Member selectedMember = memberDao.selectByMemNo(memNo);
 
+
         if (Objects.isNull(selectedMember) || !selectedMember.getPassword().equals(loginForm.getPass())) {
             throw new AuthException("login failure");
         }

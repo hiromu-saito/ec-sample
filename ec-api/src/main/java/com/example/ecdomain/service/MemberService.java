@@ -1,2 +1,26 @@
-package com.example.ecdomain.service;public class UserService {
+package com.example.ecdomain.service;
+
+import com.example.ecapi.member.MemberResource;
+import com.example.ecdomain.dao.MemberDao;
+import com.example.ecdomain.dto.Member;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+public class MemberService {
+
+    @Autowired
+    ModelMapper modelMapper;
+
+    @Autowired
+    MemberDao memberDao;
+
+    @Transactional
+    public void register(MemberResource resource){
+        Member member = modelMapper.map(resource,Member.class);
+        int i = memberDao.insert(member);
+        resource.setMemNo(memberDao.getLatestMemNo());
+    }
 }
