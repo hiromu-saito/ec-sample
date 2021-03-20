@@ -13,7 +13,7 @@ const mutations = {
   }
 }
 const actions = {
-  async setResultsAction({commit},){
+  async setResultsAction({commit}){
     const res = await fetch(searchUrl)
     .then(response => response.json())
     commit('setResults',res)

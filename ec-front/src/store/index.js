@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import search from './search'
 import backet from './backet'
+import auth from './auth'
 
 Vue.use(Vuex)
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
   },
   modules: {
     search,
-    backet
+    backet,
+    auth
   },
   getters:{
   }

@@ -29,11 +29,18 @@
         <button @click.prevent="clear">クリア</button>
       </p>
     </validation-observer>
+    <span
+      v-if="isErr"
+      style="color:red">
+        ログインに失敗しました
+    </span>
   </div>
 </template>
 
 <script>
 import ValidationInput from '../components/ValidationInput'
+import  { mapActions } from 'vuex'
+
 export default {
   name: "Login",
   components:{
@@ -42,29 +49,43 @@ export default {
   data(){
     return{
       memNo:'',
-      pass:''
+      pass:'',
+      isErr:false
     }
   },
   methods:{
+    ...mapActions('auth',['nameSaveAction']),
     clear(){
       this.memNo =''
       this.pass =''
       this.$children[1].reset()
     },
     login(){
+      //テスト
+      console.log("testlogon")
+      const mem = {
+        name :"test"
+      }
+      this.nameSaveAction(mem)
       //ログインAPIをたたく
-      fetch('http://localhost:18081/auth?'+new URLSearchParams({
-        memNo:this.memNo,
-        pass:this.pass
-      }))
-        .then(response =>{
-          if (response.ok){
-            console.log('ログイン成功')
-          }else{
-            console.log('ログイン失敗')
-          }
-        });
-      this.$router.push('/')
+      // fetch('http://localhost:18081/auth?'+new URLSearchParams({
+      //   memNo:this.memNo,
+      //   pass:this.pass
+      // }))
+      //   .then(response =>{
+      //     if (response.ok){
+      //       return response.json()
+      //     }else{
+      //       this.isErr = true
+      //       this.clear();
+      //       return Promise.reject("login failure")
+      //     }
+      //   })
+      //   .then(response =>{
+      //     console.log(response)
+      //     this.nameSaveAction(response)
+      //   });
+      
     }
   }
 };

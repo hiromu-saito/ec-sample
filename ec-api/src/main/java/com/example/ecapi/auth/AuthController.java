@@ -19,8 +19,6 @@ public class AuthController {
     @GetMapping(value="/auth")
     public ResponseEntity<Object> Login (LoginForm loginForm) throws Exception{
         Member member = authService.authCheck(loginForm);
-        System.out.println(member);
-
         return  new ResponseEntity<>(member,new HttpHeaders(), HttpStatus.OK);
     }
 }
