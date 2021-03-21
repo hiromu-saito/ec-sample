@@ -6,18 +6,33 @@
         <li><router-link to="/">会員情報変更・削除</router-link></li>
         <li><router-link to="/search">商品検索</router-link></li>
         <li><router-link to="/backet">お買い物かご</router-link></li>
-        <router-link tag="button" to="/login" style="float: right"
-          >ログイン</router-link
-        >
-        <!-- <button class="logout">ログアウト</button> -->
+        <router-link v-if="!isLogin" tag="button" to="/login" style="float: right">
+          ログイン
+        </router-link>
+        <button @click.prevent="logout" v-if="isLogin"  style="float: right">
+          ログアウト
+        </button>
       </ul>
     </nav>
   </div>
 </template>
 
 <script>
+import {mapGetters,mapActions} from 'vuex'
 export default {
   name: "Menubar",
+  computed:{
+    ...mapGetters({
+      isLogin:'auth/isLogin'
+    })
+  },
+  methods:{
+    ...mapActions('auth',['resetLoginUserAction']),
+    logout(){
+      this.resetLoginUserAction()
+      this.$router.push("/login")
+    }
+  }
 };
 </script>
 

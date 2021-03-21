@@ -1,23 +1,25 @@
 const state ={
-  loginUserName:'',
+  loginUser:{},
   isLogin:false,
-  test:[]
 }
 
 const mutations = {
   nameSave(state,payload){
     state.isLogin = true
-    console.log(payload.name)
-    state.loginUserName = payload.name
-    state.test.push("aaa")
+    console.log(payload)
+    state.loginUser = payload
+  },
+  resetLoginUser(state){
+    state.loginUser ={}
+    state.isLogin = false
   }
 }
 const actions = {
   nameSaveAction({commit},payload){
-    console.log("nameSaveAction")
-    console.log(payload)
-    console.log(payload.name)
     commit('nameSave',payload)
+  },
+  resetLoginUserAction({commit}){
+    commit("resetLoginUser")
   }
 }
 
@@ -25,8 +27,11 @@ const getters ={
   isLogin(state){
     return state.isLogin
   },
+  getUser(state){
+    return state.loginUser
+  },
   getUserName(state){
-    return state.loginUserName
+    return state.loginUser.name
   }
 }
 

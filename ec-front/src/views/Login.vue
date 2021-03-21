@@ -61,31 +61,25 @@ export default {
       this.$children[1].reset()
     },
     login(){
-      //テスト
-      console.log("testlogon")
-      const mem = {
-        name :"test"
-      }
-      this.nameSaveAction(mem)
-      //ログインAPIをたたく
-      // fetch('http://localhost:18081/auth?'+new URLSearchParams({
-      //   memNo:this.memNo,
-      //   pass:this.pass
-      // }))
-      //   .then(response =>{
-      //     if (response.ok){
-      //       return response.json()
-      //     }else{
-      //       this.isErr = true
-      //       this.clear();
-      //       return Promise.reject("login failure")
-      //     }
-      //   })
-      //   .then(response =>{
-      //     console.log(response)
-      //     this.nameSaveAction(response)
-      //   });
-      
+      fetch('http://localhost:18081/auth?'+new URLSearchParams({
+        memNo:this.memNo,
+        pass:this.pass
+      }))
+        .then(response =>{
+          if (response.ok){
+            return response.json()
+          }else{
+            return Promise.reject("login failure")
+          }
+        })
+        .then(response =>{
+          this.nameSaveAction(response)
+          this.$router.push('/')
+        })
+        .catch(()=>{
+          this.isErr = true
+          this.clear()
+        });
     }
   }
 };
