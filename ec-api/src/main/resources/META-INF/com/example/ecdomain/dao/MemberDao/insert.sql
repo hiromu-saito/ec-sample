@@ -5,7 +5,8 @@ INTO ONLINE_MEMBER(
      AGE          ,                         -- 年齢
      SEX          ,                         -- 性別
      ZIP          ,                         -- 郵便番号
-     ADDRESS      ,                         -- 住所
+     ADDRESS1      ,                         -- 住所1
+     ADDRESS2      ,                         -- 住所2
      TEL          ,                         -- 電話番号
      REGISTER_DATE,                         -- 登録日
      LAST_UPD_DATE                         -- 最終更新日
@@ -17,7 +18,8 @@ VALUES
     /*member.age*/'' ,                           -- 年齢
     /*member.sex*/'' ,                           -- 性別
     /*member.zip*/'' ,                           -- 郵便番号
-    /*member.address*/'' ,                           -- 住所
+    /*member.address1*/'' ,                           -- 住所
+    /*member.address2*/'' ,                           -- 住所
     /*member.tel*/'' ,                           -- 電話番号
     current_timestamp,                           -- 登録日
     current_timestamp                           -- 最終更新日

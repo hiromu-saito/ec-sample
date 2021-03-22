@@ -24,7 +24,9 @@ public class MemberResource {
 
     String zip;
 
-    String address;
+    String address1;
+
+    String address2;
 
     String tel;
 

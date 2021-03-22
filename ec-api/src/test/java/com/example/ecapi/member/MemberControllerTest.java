@@ -55,7 +55,8 @@ public class MemberControllerTest {
         resource.setAge(10);
         resource.setSex("M");
         resource.setZip("testZip");
-        resource.setAddress("testAddress");
+        resource.setAddress1("testAddress1");
+        resource.setAddress2("testAddress2");
         resource.setTel("000-0000-0000");
 
         mockMvc.perform(post("/user")
@@ -70,7 +71,8 @@ public class MemberControllerTest {
         assertEquals(10,insertRecord.getAge());
         assertEquals("M",insertRecord.getSex());
         assertEquals("testZip",insertRecord.getZip());
-        assertEquals("testAddress",insertRecord.getAddress());
+        assertEquals("testAddress1",insertRecord.getAddress1());
+        assertEquals("testAddress2",insertRecord.getAddress2());
         assertEquals("000-0000-0000",insertRecord.getTel());
 
 

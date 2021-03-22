@@ -33,8 +33,11 @@ public class Member {
     @Column(name = "ZIP")
     String zip;
 
-    @Column(name = "ADDRESS")
-    String address;
+    @Column(name = "ADDRESS1")
+    String address1;
+
+    @Column(name = "ADDRESS2")
+    String address2;
 
     @Column(name = "TEL")
     String tel;
