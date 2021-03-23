@@ -1,7 +1,9 @@
 package com.example.ecapi.member;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 
 import java.sql.Date;
@@ -10,9 +12,11 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
+@ToString
+//@JsonIgnoreProperties(value = { "memNo" })
 public class MemberResource {
 
-    Integer memNo;
+    int memNo;
 
     String password;
 
@@ -30,9 +34,4 @@ public class MemberResource {
 
     String tel;
 
-    Date registerDate;
-
-    String deleteFlg;
-
-    Timestamp lastUpdDate;
 }

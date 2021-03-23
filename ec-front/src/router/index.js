@@ -26,7 +26,7 @@ const routes = [
     component: Signup
   },
   {
-    path: '/signup_success',
+    path: '/signup_success/:id',
     name: 'SignupSuccess',
     component: SignupSuccess
   },

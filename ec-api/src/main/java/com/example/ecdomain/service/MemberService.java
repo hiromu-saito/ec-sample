@@ -20,7 +20,7 @@ public class MemberService {
     @Transactional
     public void register(MemberResource resource){
         Member member = modelMapper.map(resource,Member.class);
-        int i = memberDao.insert(member);
+        memberDao.insert(member);
         resource.setMemNo(memberDao.getLatestMemNo());
     }
 }

@@ -29,7 +29,7 @@
                 rules="required|max:8|numalpha|passmatch:確認用パスワード"
                 placeholder="パスワード"
                 vid="パスワード"
-                :value.sync="user.passward"
+                :value.sync="user.password"
                 />
             </td>
           </tr>
@@ -60,9 +60,9 @@
           <tr>
             <th>性別</th>
             <td>
-              <input type="radio" v-model="user.gender" value="M"/>男性
-              <input type="radio" v-model="user.gender" value="F"/>女性
-              <input type="radio" v-model="user.gender" value="O"/>その他
+              <input type="radio" v-model="user.sex" value="M"/>男性
+              <input type="radio" v-model="user.sex" value="F"/>女性
+              <input type="radio" v-model="user.sex" value="O"/>その他
             </td>
           </tr>
           <tr>
@@ -73,7 +73,7 @@
                 name="郵便番号"
                 rules="required|postalCode"
                 placeholder="000-0000"
-                :value.sync="user.postalCode"
+                :value.sync="user.zip"
               />
             </td>
           </tr>
@@ -140,15 +140,15 @@
           </tr>
           <tr>
             <th>郵便番号</th>
-            <td>{{user.postalCode}}</td>
+            <td>{{user.zip}}</td>
           </tr>
           <tr>
             <th>住所1</th>
-            <td>{{user.postalCode}}</td>
+            <td>{{user.address1}}</td>
           </tr>
           <tr>
             <th>住所2</th>
-            <td>{{user.postalCode}}</td>
+            <td>{{user.address2}}</td>
           </tr>
           <tr>
             <th>電話番号</th>
@@ -166,6 +166,8 @@
 
 <script>
 import ValidationInput from '../components/ValidationInput'
+const SIGNUP_URL = "http://localhost:18081/user"
+
 export default {
   name: "Signup",
   components:{
@@ -174,7 +176,7 @@ export default {
   data() {
     return{
       user: {
-        gender:"m"
+        gender:"M"
       },
       isInput:false
     };
@@ -184,7 +186,7 @@ export default {
   },
   computed:{
     decodeGender(){
-      switch (this.user.gender){
+      switch (this.user.sex){
         case  "M":
           return "男性"
         case "F":
@@ -199,9 +201,21 @@ export default {
     clear() {
       this.user = {}
     },
-    register(){
+    async register(){
       console.log("登録APIを呼び出す")
-      this.$router.push("/signup_success")
+      console.log(this.user)
+      const response = await fetch(SIGNUP_URL,{
+        method:'POST',
+        headers: {
+            'X-Requested-With': 'csrf',
+            'Content-Type': 'application/json',
+          },
+        body:JSON.stringify(this.user)
+      }).then(response =>{
+        return response.json()
+      })
+      const id = response.memNo
+      this.$router.push("/signup_success/" + id)
     }
   },
 };
