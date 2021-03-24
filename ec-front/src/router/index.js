@@ -6,6 +6,9 @@ import Signup from '../views/Signup.vue'
 import Search from '../views/Search.vue'
 import Backet from '../views/Backet.vue'
 import SignupSuccess from '../views/SignupSuccess'
+import MemberInfo from '../views/MemberInfo'
+import MemberModify from '../views/MemberModify'
+import MemberDelete from '../views/MemberDelete'
 
 Vue.use(VueRouter)
 
@@ -24,6 +27,21 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: Signup
+  },
+  {
+    path:'/member_info',
+    name:'MemberInfo',
+    component:MemberInfo
+  },
+  {
+    path:'/member_modify',
+    name:'MemberModify',
+    component:MemberModify
+  },
+  {
+    path:'/member_delete',
+    name:'MemberDelete',
+    component:MemberDelete
   },
   {
     path: '/signup_success/:id',
