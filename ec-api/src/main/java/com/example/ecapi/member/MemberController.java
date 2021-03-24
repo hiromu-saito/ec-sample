@@ -19,9 +19,15 @@ public class MemberController {
     MemberService memberService;
 
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Object> Signup(@RequestBody MemberResource resource) {
         memberService.register(resource);
         return new ResponseEntity<>(resource, new HttpHeaders(), 200);
+    }
+
+    @PutMapping
+    public  ResponseEntity<Object> modifyMemberInfo(@RequestBody MemberResource resource){
+        memberService.modify(resource);
+        return  ResponseEntity.ok().build();
     }
 }

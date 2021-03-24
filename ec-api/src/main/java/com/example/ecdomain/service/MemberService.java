@@ -23,4 +23,9 @@ public class MemberService {
         memberDao.insert(member);
         resource.setMemNo(memberDao.getLatestMemNo());
     }
+    @Transactional
+    public void modify(MemberResource resource){
+        Member member = modelMapper.map(resource,Member.class);
+        memberDao.update(member);
+    }
 }

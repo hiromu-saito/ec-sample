@@ -4,6 +4,7 @@ import com.example.ecdomain.dto.Member;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
+import org.seasar.doma.Update;
 import org.seasar.doma.boot.ConfigAutowireable;
 
 @Dao
@@ -18,4 +19,8 @@ public interface MemberDao {
 
     @Insert(sqlFile = true, exclude = {"deleteFlg"})
     int insert(Member member);
+
+    @Update(sqlFile = true)
+    int update(Member member);
+
 }
