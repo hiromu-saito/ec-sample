@@ -28,4 +28,10 @@ public class MemberService {
         Member member = modelMapper.map(resource,Member.class);
         memberDao.update(member);
     }
+
+    @Transactional
+    public void delete(MemberResource resource){
+        int memNo = resource.getMemNo();
+        memberDao.delete(memNo);
+    }
 }

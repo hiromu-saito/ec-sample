@@ -1,6 +1,7 @@
 package com.example.ecapi.member;
 
 
+import com.example.ecdomain.dto.Member;
 import com.example.ecdomain.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -28,6 +29,12 @@ public class MemberController {
     @PutMapping
     public  ResponseEntity<Object> modifyMemberInfo(@RequestBody MemberResource resource){
         memberService.modify(resource);
+        return  ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Object> deleteMember(@RequestBody MemberResource resource){
+        memberService.delete(resource);
         return  ResponseEntity.ok().build();
     }
 }

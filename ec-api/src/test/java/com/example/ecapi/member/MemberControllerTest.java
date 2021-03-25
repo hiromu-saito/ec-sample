@@ -16,9 +16,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -105,5 +106,20 @@ public class MemberControllerTest {
         assertEquals("updateAddress1",updatedMember.getAddress1());
         assertEquals("updateAddress2",updatedMember.getAddress2());
         assertEquals("111-1111-1111",updatedMember.getTel());
+    }
+
+    @Test
+    public void deleteMemberTest()throws Exception{
+        MemberResource resource = new MemberResource();
+        int memNo = memberDao.getLatestMemNo();
+        resource.setMemNo(memNo);
+
+        mockMvc.perform(delete("/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(resource)))
+                .andExpect(status().isOk());
+
+        Member member = memberDao.selectByMemNo(memNo);
+        assertNull(member);
     }
 }
