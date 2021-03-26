@@ -6,7 +6,6 @@ const state ={
 const mutations = {
   nameSave(state,payload){
     state.isLogin = true
-    console.log(payload)
     state.loginUser = payload
   },
   resetLoginUser(state){

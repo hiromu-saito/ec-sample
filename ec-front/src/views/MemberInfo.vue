@@ -50,7 +50,7 @@ export default {
   beforeRouteEnter(to,from,next){
     if(store.getters['auth/isLogin']){
       next()
-    }else next({name:'Signup'})
+    }else next({name:'Login'})
   },
   methods:{
     decedeSex(sex){

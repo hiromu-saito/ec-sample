@@ -21,6 +21,6 @@ public interface MemberDao {
     int update(Member member);
 
     @Update(sqlFile = true)
-    int delete(int memNo);
+    int logicalDelete(int memNo);
 
 }

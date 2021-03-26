@@ -1,6 +1,6 @@
 UPDATE ONLINE_MEMBER
 SET
-    /*%if member.password != null*/
+    /*%if member.password != ""*/
       PASSWORD = /*member.password*/'',                      -- パスワード
     /*%end*/
     NAME = /*member.name*/'' ,              -- 氏名

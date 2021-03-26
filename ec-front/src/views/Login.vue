@@ -58,6 +58,7 @@ export default {
     clear(){
       this.memNo =''
       this.pass =''
+      //TODO hasOwnpropaty使って見る
       this.$children[1].reset()
     },
     login(){

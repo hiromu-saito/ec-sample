@@ -202,8 +202,6 @@ export default {
       this.user = {}
     },
     async register(){
-      console.log("登録APIを呼び出す")
-      console.log(this.user)
       const response = await fetch(SIGNUP_URL,{
         method:'POST',
         headers: {
