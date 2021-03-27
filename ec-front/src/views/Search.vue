@@ -11,10 +11,10 @@
               <select>
                 <option
                   v-for="category in categories"
-                  :value="category.title"
+                  :value="category.id"
                   :key="category.id"
                 >
-                  {{ category.title }}
+                  {{ category.name }}
                 </option>
               </select>
             </td>
@@ -112,7 +112,7 @@ import { mapActions } from "vuex";
 import store from "../store";
 import ValidationInput from "../components/ValidationInput.vue";
 
-const categoryUrl = "http://localhost:3000/categories";
+const categoryUrl = "http://localhost:18081/item/category";
 export default {
   name: "Search",
   components:{
