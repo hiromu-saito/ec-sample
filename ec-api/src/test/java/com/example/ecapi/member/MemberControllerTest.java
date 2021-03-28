@@ -12,9 +12,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
@@ -48,6 +50,7 @@ public class MemberControllerTest {
     }
 
     @Test
+    @Rollback
     public void signupTest() throws Exception {
         MemberResource resource = new MemberResource();
         int memNo = memberDao.getLatestMemNo();
@@ -74,7 +77,7 @@ public class MemberControllerTest {
         assertEquals("testZip", insertRecord.getZip());
         assertEquals("testAddress1", insertRecord.getAddress1());
         assertEquals("testAddress2", insertRecord.getAddress2());
-        assertEquals("000-0000-0000", insertRecord.getTel());
+        assertEquals("000-0000-000", insertRecord.getTel());
     }
 
     @Test

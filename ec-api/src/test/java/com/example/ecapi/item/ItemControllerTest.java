@@ -33,5 +33,12 @@ public class ItemControllerTest {
     public void getItemCategoryTest()throws  Exception{
         mockMvc.perform(get("/item/category"))
                 .andExpect(status().isOk());
+        //TODO テスト詳細化
+    }
+
+    @Test
+    public void itemSearchTest()throws Exception{
+        mockMvc.perform(get("/item"))
+                .andExpect(status().isOk());
     }
 }

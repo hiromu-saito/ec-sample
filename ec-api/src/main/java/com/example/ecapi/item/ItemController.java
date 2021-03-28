@@ -18,6 +18,12 @@ public class ItemController {
     @Autowired
     ItemService itemService;
 
+    @GetMapping
+    public ResponseEntity<Object> searchItem(ItemResource resource){
+
+        return new ResponseEntity<>(null,new HttpHeaders(),200);
+    }
+
     @GetMapping(value = "/category")
     public ResponseEntity<Object> getItemCategory(){
         val categoryList = itemService.getCategory();

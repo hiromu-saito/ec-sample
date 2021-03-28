@@ -26,10 +26,6 @@ public class MemberService {
     @Transactional
     public void modify(MemberResource resource){
         Member member = modelMapper.map(resource,Member.class);
-        System.out.println("----------------------");
-        System.out.println(member.getPassword());
-        System.out.println("----------------------");
-
         memberDao.update(member);
     }
 
