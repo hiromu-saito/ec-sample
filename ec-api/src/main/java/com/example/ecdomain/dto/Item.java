@@ -44,7 +44,7 @@ public class Item {
     String memo;
 
     @Column(name = "DELETE_FLG")
-    char deleteFlg;
+    String deleteFlg;
 
     @Column(name = "LAST_UPD_DATE")
     Timestamp lastUpdDate;

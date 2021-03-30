@@ -1,6 +1,6 @@
 package com.example.ecapi.auth;
 
-import com.example.ecdomain.dto.Member;
+import com.example.ecapi.member.MemberResource;
 import com.example.ecdomain.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -18,7 +18,7 @@ public class AuthController {
     @CrossOrigin
     @GetMapping(value="/auth")
     public ResponseEntity<Object> Login (LoginForm loginForm) throws Exception{
-        Member member = authService.authCheck(loginForm);
-        return  new ResponseEntity<>(member,new HttpHeaders(), HttpStatus.OK);
+        MemberResource resource = authService.authCheck(loginForm);
+        return  new ResponseEntity<>(resource,new HttpHeaders(), HttpStatus.OK);
     }
 }

@@ -13,7 +13,6 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @ToString
-//@JsonIgnoreProperties(value = { "memNo" })
 public class MemberResource {
 
     int memNo;

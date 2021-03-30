@@ -5,6 +5,8 @@ import com.example.eccommon.ApiExceptionHandler;
 import com.example.ecdomain.dao.MemberDao;
 import com.example.ecdomain.dto.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ninja_squad.dbsetup.destination.Destination;
+import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,9 +25,11 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static com.ninja_squad.dbsetup.Operations.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
+@Transactional
 public class MemberControllerTest {
 
     private MockMvc mockMvc;
@@ -50,10 +54,8 @@ public class MemberControllerTest {
     }
 
     @Test
-    @Rollback
     public void signupTest() throws Exception {
         MemberResource resource = new MemberResource();
-        int memNo = memberDao.getLatestMemNo();
         resource.setName("testName");
         resource.setPassword("testPass");
         resource.setAge(10);
@@ -66,10 +68,10 @@ public class MemberControllerTest {
         mockMvc.perform(post("/user")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsBytes(resource)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("memNo").value(memNo + 1));
+                .andExpect(status().isOk());
 
-        Member insertRecord = memberDao.selectByMemNo(memNo + 1);
+        int latestNo = memberDao.getLatestMemNo();
+        Member insertRecord = memberDao.selectByMemNo(latestNo);
         assertEquals("testName", insertRecord.getName());
         assertEquals("testPass", insertRecord.getPassword());
         assertEquals(10, insertRecord.getAge());
@@ -77,7 +79,7 @@ public class MemberControllerTest {
         assertEquals("testZip", insertRecord.getZip());
         assertEquals("testAddress1", insertRecord.getAddress1());
         assertEquals("testAddress2", insertRecord.getAddress2());
-        assertEquals("000-0000-000", insertRecord.getTel());
+        assertEquals("000-0000-0000", insertRecord.getTel());
     }
 
     @Test

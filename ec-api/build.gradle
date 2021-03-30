@@ -57,6 +57,10 @@ dependencies {
     runtime "mysql:mysql-connector-java:+"
 
     compile "org.modelmapper:modelmapper:1.1.3"
+    testImplementation 'com.ninja-squad:DbSetup:2.1.0'
+    compile 'commons-io:commons-io:2.8.0'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+
 }
 
 eclipse {

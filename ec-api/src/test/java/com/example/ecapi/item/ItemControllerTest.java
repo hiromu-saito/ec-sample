@@ -1,6 +1,7 @@
 package com.example.ecapi.item;
 
 
+import com.example.AbstractBaseTest;
 import com.example.eccommon.ApiExceptionHandler;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,12 +11,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+
+import static org.hamcrest.Matchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ItemControllerTest {
+public class ItemControllerTest extends AbstractBaseTest {
 
     private MockMvc mockMvc;
 
@@ -23,7 +26,7 @@ public class ItemControllerTest {
     ItemController target;
 
     @Before
-    public  void setUp(){
+    public  void setUp()  {
         mockMvc = MockMvcBuilders.standaloneSetup(target)
                 .setControllerAdvice(new ApiExceptionHandler())
                 .build();
@@ -31,14 +34,24 @@ public class ItemControllerTest {
 
     @Test
     public void getItemCategoryTest()throws  Exception{
+        dataSetupByFile("setup/ItemControllerTest/getItemCategoryTest.sql");
         mockMvc.perform(get("/item/category"))
-                .andExpect(status().isOk());
-        //TODO テスト詳細化
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].ctgrId").value(0))
+                .andExpect(jsonPath("$[0].name").value("サプリ"))
+                .andExpect(jsonPath("$[0].lastUpdDate").value(nullValue()));
     }
 
     @Test
     public void itemSearchTest()throws Exception{
-        mockMvc.perform(get("/item"))
-                .andExpect(status().isOk());
+        dataSetupByFile("setup/ItemControllerTest/itemSearchTest.sql");
+        mockMvc.perform(get("/item?categoryId=0&name=サプリ"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)));
+
+        mockMvc.perform(get("/item?minPrice=3000&maxPrice=5000"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(4)));
     }
 }

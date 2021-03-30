@@ -1,5 +1,6 @@
 package com.example.ecdomain.dao;
 
+import com.example.ecapi.item.ItemQuery;
 import com.example.ecdomain.dto.Item;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Select;
@@ -12,5 +13,5 @@ import java.util.List;
 public interface ItemDao {
 
     @Select
-    List<Item> select(Item item);
+    List<Item> select(ItemQuery query);
 }

@@ -15,4 +15,3 @@ WHERE
     `MEMBER_NO` = /*member.memNo*/''                    -- 会員番号
 
 
-

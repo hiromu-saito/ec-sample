@@ -2,10 +2,6 @@ package com.example.ecapi.item;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.seasar.doma.Column;
-
-import java.sql.Date;
-import java.sql.Timestamp;
 
 @Getter
 @Setter

@@ -19,9 +19,9 @@ public class ItemController {
     ItemService itemService;
 
     @GetMapping
-    public ResponseEntity<Object> searchItem(ItemResource resource){
-
-        return new ResponseEntity<>(null,new HttpHeaders(),200);
+    public ResponseEntity<Object> searchItem(ItemQuery query){
+        val itemList = itemService.searchItem(query);
+        return new ResponseEntity<>(itemList,new HttpHeaders(),200);
     }
 
     @GetMapping(value = "/category")
