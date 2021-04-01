@@ -1,3 +1,4 @@
+
 const state ={
   backetItems:[]
 }
@@ -6,7 +7,7 @@ const mutations = {
   addItem(state,payload){
     payload.forEach(addItem => {
       const index = state.backetItems.findIndex(backetItem =>{
-        return backetItem.code === addItem.code
+        return backetItem.itemCode === addItem.itemCode
       })
       if(index === -1){
         addItem.count = parseInt(addItem.count,10)
@@ -15,6 +16,9 @@ const mutations = {
         state.backetItems[index].count += parseInt(addItem.count,10)
       }
     })
+  },
+  updateBacket(state,payload){
+    state.backetItems  = payload
   },
   removeAllItem(state){
     state.backetItems = []
@@ -26,6 +30,9 @@ const actions = {
   },
   removeAllItemAction({commit}){
     commit('removeAllItem')
+  },
+  updateBacketAction({commit},payload){
+    commit('updateBacket',payload)
   }
 }
 
@@ -33,7 +40,7 @@ const getters ={
   subtotal(state){
     let subtotal = 0;
     state.backetItems.forEach(backetItem => {
-      subtotal += parseInt(backetItem.price)
+      subtotal += parseInt(backetItem.unitPrice) * backetItem.count
     });
     return subtotal
   },
@@ -44,6 +51,10 @@ const getters ={
 
   total(state,getters){
     return getters.subtotal + getters.tax
+  },
+
+  backetItems(state){
+    return state.backetItems
   }
 }
 

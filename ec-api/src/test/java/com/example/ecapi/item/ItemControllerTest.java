@@ -46,7 +46,7 @@ public class ItemControllerTest extends AbstractBaseTest {
     @Test
     public void itemSearchTest()throws Exception{
         dataSetupByFile("setup/ItemControllerTest/itemSearchTest.sql");
-        mockMvc.perform(get("/item?categoryId=0&name=サプリ"))
+        mockMvc.perform(get("/item?categoryId=0&itemName=サプリ"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)));
 

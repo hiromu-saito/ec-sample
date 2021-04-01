@@ -1,4 +1,4 @@
-const searchUrl = "http://localhost:3000/search"
+const searchUrl = "http://localhost:18081/item?"
 
 const state ={
   results:[]
@@ -13,10 +13,10 @@ const mutations = {
   }
 }
 const actions = {
-  async setResultsAction({commit}){
-    const res = await fetch(searchUrl)
+  async setResultsAction({commit},where){
+    const response = await fetch(searchUrl+ new URLSearchParams(where))
     .then(response => response.json())
-    commit('setResults',res)
+    commit('setResults',response)
   },
   resetResultsAction({commit}){
     commit('resetResults')

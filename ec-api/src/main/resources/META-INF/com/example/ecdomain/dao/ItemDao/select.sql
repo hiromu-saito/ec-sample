@@ -8,8 +8,8 @@ WHERE
     AND CATEGORY_ID = /* query.categoryId */''
    /*%end*/
 
-  /*%if @isNotEmpty(query.name) */
-    AND PRODUCT_NAME LIKE /* @infix(query.name) */''
+  /*%if @isNotEmpty(query.itemName) */
+    AND PRODUCT_NAME LIKE /* @infix(query.itemName) */''
   /*%end*/
 
   /*%if @isNotEmpty(query.maker) */

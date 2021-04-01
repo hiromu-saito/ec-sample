@@ -12,7 +12,7 @@ public class ItemQuery {
 
     String categoryId;
 
-    String name;
+    String itemName;
 
     String maker;
 

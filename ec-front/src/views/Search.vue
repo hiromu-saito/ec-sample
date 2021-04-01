@@ -8,11 +8,11 @@
           <tr>
             <th>カテゴリ</th>
             <td>
-              <select>
+              <select v-model="where.categoryId">
                 <option
                   v-for="category in categories"
-                  :value="category.id"
-                  :key="category.id"
+                  :value="category.ctgrId"
+                  :key="category.ctgrId"
                 >
                   {{ category.name }}
                 </option>
@@ -28,7 +28,7 @@
           <tr>
             <th>販売元</th>
             <td>
-              <input name="distributor" v-model="where.distributor" />
+              <input name="distributor" v-model="where.maker" />
             </td>
           </tr>
           <tr>
@@ -73,7 +73,7 @@
       <table>
         <thead>
           <tr>
-            <th>選択</th>
+            <th >選択</th>
             <th>商品コード</th>
             <th>商品名</th>
             <th>販売元</th>
@@ -86,19 +86,19 @@
           <tr
             v-for="result in results"
             :key="result.code">
-            <td>
+            <td style="width:50px">
               <input
                 type="checkbox"
                 :value="result"
-                @click="selectedItems.push(result)"
+                @click="inAndOut(result)"
                 />
             </td>
-            <td>{{result.code}}</td>
-            <td>{{result.name}}</td>
-            <td>{{result.distributor}}</td>
-            <td>{{result.price}}</td>
-            <td>{{result.memo}}</td>
-            <td><input v-model="result.count"/></td>
+            <td style="width:50px">{{result.itemCode}}</td>
+            <td style="width:150px">{{result.itemName}}</td>
+            <td style="width:50px">{{result.maker}}</td>
+            <td style="width:100px">{{result.unitPrice}}</td>
+            <td style="width:200px">{{subStr(result.memo)}}</td>
+            <td style="width:50px"><input v-model="result.count"/></td>
           </tr>
         </tbody>
       </table>
@@ -126,7 +126,6 @@ export default {
     }
   },
   async mounted(){
-    //TODO 呼び出しAPIを変える
     this.categories = await fetch(categoryUrl).then((response) =>
       response.json()
     );
@@ -137,7 +136,7 @@ export default {
     ...mapActions('backet',['addItemAction']),
     search(){
       //TODO 検索パラメータを渡す
-      this.setResultsAction()
+      this.setResultsAction(this.where)
     },
     clear(){
       this.where = {}
@@ -147,6 +146,18 @@ export default {
       this.addItemAction(this.selectedItems)
       this.$router.push("/backet")
     },
+    subStr(str){
+      return str.substr(0,30);
+    },
+  inAndOut(item){
+    const itemCodes = this.selectedItems.map(el => el.itemCode)
+    const index = itemCodes.indexOf(item.itemCode)
+    if(index === -1){
+      this.selectedItems.push(item)
+    }else{
+      this.selectedItems.splice(index,1)
+    }
+  },
   },
   computed:{
     results:() => store.state.search.results,

@@ -16,12 +16,12 @@
         <tbody>
           <tr
             v-for="backetItem in backetItems"
-            :key="backetItem.code">
+            :key="backetItem.itemCode">
             <td><input type="checkbox"/></td>
-            <td>{{backetItem.code}}</td>
-            <td>{{backetItem.name}}</td>
-            <td>{{backetItem.distributor}}</td>
-            <td>&yen;{{backetItem.price}}</td>
+            <td>{{backetItem.itemCode}}</td>
+            <td>{{backetItem.itemName}}</td>
+            <td>{{backetItem.maker}}</td>
+            <td>&yen;{{backetItem.unitPrice}}</td>
             <td>
               <input
                 type="text"
@@ -53,11 +53,11 @@
         <tbody>
           <tr
             v-for="backetItem in backetItems"
-            :key="backetItem.code">
-            <td>{{backetItem.code}}</td>
-            <td>{{backetItem.name}}</td>
-            <td>{{backetItem.distributor}}</td>
-            <td>&yen;{{backetItem.price}}</td>
+            :key="backetItem.itemCode">
+            <td>{{backetItem.itemCode}}</td>
+            <td>{{backetItem.itemName}}</td>
+            <td>{{backetItem.maker}}</td>
+            <td>&yen;{{backetItem.unitPrice}}</td>
             <td>{{backetItem.count}}</td>
           </tr>
         </tbody>
@@ -103,11 +103,11 @@ export default {
   data(){
     return{
       isChecking:false,
-      orderSuccess:false
+      orderSuccess:false,
+      backetItems:BACKET.backetItems
     }
   },
   computed:{
-    backetItems:()=> BACKET.backetItems,
     ...mapGetters({
       subtotal:'backet/subtotal',
       tax:'backet/tax',
@@ -115,19 +115,20 @@ export default {
     }),
   },
   methods:{
-    ...mapActions('backet',['removeAllItemAction']),
+    ...mapActions('backet',['removeAllItemAction','updateBacketAction']),
     stopShopping(){
       this.removeAllItemAction()
       this.$router.push('/')
     },
     check(){
       //TODO 在庫確認
+      this.updateBacketAction(this.backetItems)
       this.isChecking = true
     },
     order(){
       this.orderSuccess = true
     }
-  }
+  },
 };
 </script>
 
