@@ -1,10 +1,11 @@
 INSERT
 INTO ONLINE_MEMBER(
+     MEMBER_NO,
      PASSWORD   ,                         -- パスワード
      NAME         ,                         -- 氏名
      AGE          ,                         -- 年齢
      SEX          ,                         -- 性別
-     ZIP          ,                         -- 郵便番号
+     ZIP          ,                         -- 郵便番号s
      ADDRESS1      ,                         -- 住所1
      ADDRESS2      ,                         -- 住所2
      TEL          ,                         -- 電話番号
@@ -13,6 +14,7 @@ INTO ONLINE_MEMBER(
 )
 VALUES
 (
+    /*member.memNo*/'',
     /*member.password*/'' ,                           -- パスワード
     /*member.name*/'' ,                           -- 氏名
     /*member.age*/'' ,                           -- 年齢

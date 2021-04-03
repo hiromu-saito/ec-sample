@@ -1,12 +1,11 @@
 package com.example.ecapi.member;
 
 
+import com.example.AbstractBaseTest;
 import com.example.eccommon.ApiExceptionHandler;
 import com.example.ecdomain.dao.MemberDao;
 import com.example.ecdomain.dto.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ninja_squad.dbsetup.destination.Destination;
-import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +13,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -25,12 +23,11 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static com.ninja_squad.dbsetup.Operations.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @Transactional
-public class MemberControllerTest {
+public class MemberControllerTest extends AbstractBaseTest {
 
     private MockMvc mockMvc;
 
@@ -55,7 +52,9 @@ public class MemberControllerTest {
 
     @Test
     public void signupTest() throws Exception {
+        dataSetupByFile("setup/MemberControllerTest/signupTest.sql");
         MemberResource resource = new MemberResource();
+        resource.setMemNo("1");
         resource.setName("testName");
         resource.setPassword("testPass");
         resource.setAge(10);
@@ -70,8 +69,7 @@ public class MemberControllerTest {
                 .content(objectMapper.writeValueAsBytes(resource)))
                 .andExpect(status().isOk());
 
-        int latestNo = memberDao.getLatestMemNo();
-        Member insertRecord = memberDao.selectByMemNo(latestNo);
+        Member insertRecord = memberDao.selectByMemNo(1);
         assertEquals("testName", insertRecord.getName());
         assertEquals("testPass", insertRecord.getPassword());
         assertEquals(10, insertRecord.getAge());
@@ -84,9 +82,9 @@ public class MemberControllerTest {
 
     @Test
     public void modifyMemberInfoTest() throws Exception {
+        dataSetupByFile("setup/MemberControllerTest/modifyMemberInfoTest.sql");
         MemberResource resource = new MemberResource();
-        int memNo = memberDao.getLatestMemNo();
-        resource.setMemNo(String.valueOf(memNo));
+        resource.setMemNo("1");
         resource.setName("updateName");
         resource.setPassword("upPass");
         resource.setAge(20);
@@ -102,7 +100,7 @@ public class MemberControllerTest {
                 .content(objectMapper.writeValueAsBytes(resource)))
                 .andExpect(status().isOk());
 
-        Member updatedMember = memberDao.selectByMemNo(memNo);
+        Member updatedMember = memberDao.selectByMemNo(1);
         assertEquals("updateName",updatedMember.getName());
         assertEquals("upPass",updatedMember.getPassword());
         assertEquals(20,updatedMember.getAge());
@@ -115,16 +113,15 @@ public class MemberControllerTest {
 
     @Test
     public void deleteMemberTest()throws Exception{
+        dataSetupByFile("setup/MemberControllerTest/deleteMemberTest.sql");
         MemberResource resource = new MemberResource();
-        int memNo = memberDao.getLatestMemNo();
-        resource.setMemNo(String.valueOf(memNo));
-
+        resource.setMemNo("1");
         mockMvc.perform(delete("/user")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsBytes(resource)))
                 .andExpect(status().isOk());
 
-        Member member = memberDao.selectByMemNo(memNo);
+        Member member = memberDao.selectByMemNo(1);
         assertNull(member);
     }
 }

@@ -9,6 +9,7 @@
             <th>カテゴリ</th>
             <td>
               <select v-model="where.categoryId">
+                <option value="">全て</option>
                 <option
                   v-for="category in categories"
                   :value="category.ctgrId"
@@ -130,6 +131,7 @@ export default {
       response.json()
     );
     this.resetResultsAction();
+    this.where.categoryId=""
   },
   methods:{
     ...mapActions('search',['setResultsAction','resetResultsAction']),
