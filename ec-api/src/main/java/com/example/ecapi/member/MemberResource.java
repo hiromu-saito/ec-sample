@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 @ToString
 public class MemberResource {
 
-    int memNo;
+    String memNo;
 
     String password;
 

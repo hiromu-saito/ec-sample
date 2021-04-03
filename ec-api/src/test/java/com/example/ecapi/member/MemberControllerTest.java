@@ -86,7 +86,7 @@ public class MemberControllerTest {
     public void modifyMemberInfoTest() throws Exception {
         MemberResource resource = new MemberResource();
         int memNo = memberDao.getLatestMemNo();
-        resource.setMemNo(memNo);
+        resource.setMemNo(String.valueOf(memNo));
         resource.setName("updateName");
         resource.setPassword("upPass");
         resource.setAge(20);
@@ -117,7 +117,7 @@ public class MemberControllerTest {
     public void deleteMemberTest()throws Exception{
         MemberResource resource = new MemberResource();
         int memNo = memberDao.getLatestMemNo();
-        resource.setMemNo(memNo);
+        resource.setMemNo(String.valueOf(memNo));
 
         mockMvc.perform(delete("/user")
                 .contentType(MediaType.APPLICATION_JSON)

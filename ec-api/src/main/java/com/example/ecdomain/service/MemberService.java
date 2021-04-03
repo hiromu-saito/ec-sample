@@ -21,7 +21,7 @@ public class MemberService {
     public void register(MemberResource resource){
         Member member = modelMapper.map(resource,Member.class);
         memberDao.insert(member);
-        resource.setMemNo(memberDao.getLatestMemNo());
+        resource.setMemNo(String.valueOf(memberDao.getLatestMemNo()));
     }
     @Transactional
     public void modify(MemberResource resource){
@@ -31,7 +31,6 @@ public class MemberService {
 
     @Transactional
     public void delete(MemberResource resource){
-        int memNo = resource.getMemNo();
-        memberDao.logicalDelete(memNo);
+        memberDao.logicalDelete(Integer.parseInt(resource.getMemNo()));
     }
 }

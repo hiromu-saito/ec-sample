@@ -1,5 +1,6 @@
 package com.example.ecapi.auth;
 
+import com.example.AbstractBaseTest;
 import com.example.eccommon.ApiExceptionHandler;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class AuthControllerTest {
+public class AuthControllerTest extends AbstractBaseTest {
 
     private MockMvc mockMvc;
 
@@ -33,14 +34,16 @@ public class AuthControllerTest {
     }
 
     @Test
-    public void loginSuccess()throws Exception {
+    public void loginSuccessTest()throws Exception {
+        dataSetupByFile("setup/AuthControllerTest/loginSuccessTest.sql");
        mockMvc.perform(get("/auth?memNo=1&pass=111"))
                .andExpect(status().isOk());
 
     }
     @Test
-    public void loginFailure()throws Exception {
-      mockMvc.perform(get("/auth?memNo=1&pass=pass"))
+    public void loginFailureTest()throws Exception {
+        dataSetupByFile("setup/AuthControllerTest/loginFailureTest.sql");
+      mockMvc.perform(get("/auth?memNo=1&pass=111"))
                .andExpect(status().is(401));
     }
 }
