@@ -103,7 +103,9 @@
           </tr>
         </tbody>
       </table>
-      <p><button @click="addBacket" :disabled=addBacketValidate>お買い物かごにいれる</button></p>
+      <p>
+        <button @click="addBacket" :disabled=addBacketValidate>お買い物かごにいれる</button>
+      </p>
     </div>
   </div>
 </template>

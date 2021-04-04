@@ -17,7 +17,7 @@
           <tr
             v-for="backetItem in backetItems"
             :key="backetItem.itemCode">
-            <td><input type="checkbox"/></td>
+            <td><input type="checkbox" @click="toggleRemoveItem(backetItem.itemCode)"/></td>
             <td>{{backetItem.itemCode}}</td>
             <td>{{backetItem.itemName}}</td>
             <td>{{backetItem.maker}}</td>
@@ -32,7 +32,7 @@
         </tbody>
       </table>
       <p>
-        <button>取り消し</button>
+        <button @click.prevent="removeItem">取り消し</button>
         <button @click="stopShopping">買い物をやめる</button>
         <button @click="check">注文する</button>
         <button @click="$router.push('/')">メニューへ</button>
@@ -104,7 +104,8 @@ export default {
     return{
       isChecking:false,
       orderSuccess:false,
-      backetItems:BACKET.backetItems
+      backetItems:BACKET.backetItems,
+      removeItemCodes:[]
     }
   },
   computed:{
@@ -115,7 +116,7 @@ export default {
     }),
   },
   methods:{
-    ...mapActions('backet',['removeAllItemAction','updateBacketAction']),
+    ...mapActions('backet',['removeItemsAction','removeAllItemAction','updateBacketAction']),
     stopShopping(){
       this.removeAllItemAction()
       this.$router.push('/')
@@ -127,6 +128,20 @@ export default {
     },
     order(){
       this.orderSuccess = true
+    },
+    removeItem(){
+      console.log('removeItem')
+      this.removeItemsAction(this.removeItemCodes)
+    },
+    toggleRemoveItem(toggleItemCode){
+      const index = this.removeItemCodes.findIndex(removeItemCode =>{
+        return removeItemCode === toggleItemCode
+      })
+      if(index === -1){
+        this.removeItemCodes.push(toggleItemCode)
+        }else{
+        this.removeItemCodes.splice(index,1)
+      }
     }
   },
 };

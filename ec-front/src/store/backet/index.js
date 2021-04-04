@@ -17,16 +17,29 @@ const mutations = {
       }
     })
   },
-  updateBacket(state,payload){
-    state.backetItems  = payload
+  removeItems(state,payload){
+    payload.forEach(removeItemCode =>{
+      const index = state.backetItems.findIndex(backetItem =>{
+        return removeItemCode === backetItem.itemCode
+      })
+      if (index !== -1){
+        state.backetItems.splice(index,1)
+      }
+    })
   },
   removeAllItem(state){
     state.backetItems = []
+  },
+  updateBacket(state,payload){
+    state.backetItems  = payload
   }
 }
 const actions = {
   addItemAction({commit},payload){
     commit('addItem',payload)
+  },
+  removeItemsAction({commit},payload){
+    commit('removeItems',payload)
   },
   removeAllItemAction({commit}){
     commit('removeAllItem')
