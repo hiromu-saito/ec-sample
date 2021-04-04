@@ -74,7 +74,7 @@
       <table>
         <thead>
           <tr>
-            <th >選択</th>
+            <th>選択</th>
             <th>商品コード</th>
             <th>商品名</th>
             <th>販売元</th>
@@ -95,7 +95,9 @@
                 />
             </td>
             <td style="width:50px">{{result.itemCode}}</td>
-            <td style="width:150px">{{result.itemName}}</td>
+            <td style="width:150px">
+              <router-link :to="{name:'ItemDetail',params:{id:result.itemCode}}">
+                {{result.itemName}}</router-link></td>
             <td style="width:50px">{{result.maker}}</td>
             <td style="width:100px">{{result.unitPrice}}</td>
             <td style="width:200px">{{subStr(result.memo)}}</td>
@@ -128,11 +130,17 @@ export default {
       where:{}
     }
   },
+  beforeRouteEnter(to,from,next){
+    next(vm => {
+      if(from.name !== 'ItemDetail' && from.name !== null){
+        vm.resetResultsAction()
+      }
+    })
+  },
   async mounted(){
     this.categories = await fetch(categoryUrl).then((response) =>
       response.json()
     );
-    this.resetResultsAction();
     this.where.categoryId=""
   },
   methods:{

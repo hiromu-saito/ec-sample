@@ -9,6 +9,7 @@ import SignupSuccess from '../views/SignupSuccess'
 import MemberInfo from '../views/MemberInfo'
 import MemberModify from '../views/MemberModify'
 import MemberDelete from '../views/MemberDelete'
+import ItemDetail from '../views/ItemDetail';
 
 Vue.use(VueRouter)
 
@@ -52,6 +53,11 @@ const routes = [
     path: '/search',
     name: 'Search',
     component: Search
+  },
+  {
+    path:'/item_detail/:id',
+    name:'ItemDetail',
+    component:ItemDetail
   },
   {
     path: '/backet',
